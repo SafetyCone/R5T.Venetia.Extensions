@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -35,6 +36,14 @@ namespace R5T.Venetia
             using (var dbContext = this.GetNewDbContext())
             {
                 action(dbContext);
+            }
+        }
+
+        protected async Task ExecuteInContextAsync(Func<TDbContext, Task> action)
+        {
+            using (var dbContext = this.GetNewDbContext())
+            {
+                await action(dbContext);
             }
         }
 
