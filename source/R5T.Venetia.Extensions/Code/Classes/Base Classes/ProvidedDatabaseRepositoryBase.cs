@@ -55,5 +55,14 @@ namespace R5T.Venetia
                 return output;
             }
         }
+
+        protected async Task<TOutput> ExecuteInContextAsync<TOutput>(Func<TDbContext, Task<TOutput>> function)
+        {
+            using (var dbContext = this.GetNewDbContext())
+            {
+                var output = await function(dbContext);
+                return output;
+            }
+        }
     }
 }
