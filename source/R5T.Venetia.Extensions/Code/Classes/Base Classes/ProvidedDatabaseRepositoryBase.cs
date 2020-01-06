@@ -31,7 +31,7 @@ namespace R5T.Venetia
             return dbContext;
         }
 
-        protected void ExecuteInContext(Action<TDbContext> action)
+        protected void ExecuteInContextSync(Action<TDbContext> action)
         {
             using (var dbContext = this.GetNewDbContext())
             {
@@ -47,7 +47,7 @@ namespace R5T.Venetia
             }
         }
 
-        protected TOutput ExecuteInContext<TOutput>(Func<TDbContext, TOutput> function)
+        protected TOutput ExecuteInContextSync<TOutput>(Func<TDbContext, TOutput> function)
         {
             using (var dbContext = this.GetNewDbContext())
             {
