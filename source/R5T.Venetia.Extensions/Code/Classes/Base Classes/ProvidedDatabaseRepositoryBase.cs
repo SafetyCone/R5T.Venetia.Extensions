@@ -31,7 +31,7 @@ namespace R5T.Venetia
             return dbContext;
         }
 
-        protected void ExecuteInContextSync(Action<TDbContext> action)
+        protected void ExecuteInContextSynchronous(Action<TDbContext> action)
         {
             using (var dbContext = this.GetNewDbContext())
             {
@@ -47,7 +47,16 @@ namespace R5T.Venetia
             }
         }
 
-        protected TOutput ExecuteInContextSync<TOutput>(Func<TDbContext, TOutput> function)
+        /// <summary>
+        /// Default method is asynchronous.
+        /// </summary>
+        protected Task ExecuteInContext(Func<TDbContext, Task> action)
+        {
+            var execute = this.ExecuteInContextAsync(action);
+            return execute;
+        }
+
+        protected TOutput ExecuteInContextSynchronous<TOutput>(Func<TDbContext, TOutput> function)
         {
             using (var dbContext = this.GetNewDbContext())
             {
@@ -63,6 +72,12 @@ namespace R5T.Venetia
                 var output = await function(dbContext);
                 return output;
             }
+        }
+
+        protected Task<TOutput> ExecuteInContext<TOutput>(Func<TDbContext, Task<TOutput>> function)
+        {
+            var execute = this.ExecuteInContextAsync(function);
+            return execute;
         }
     }
 }
