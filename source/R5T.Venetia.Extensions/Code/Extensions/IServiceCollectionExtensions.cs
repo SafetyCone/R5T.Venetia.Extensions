@@ -38,16 +38,14 @@ namespace R5T.Venetia.Extensions
             where TConnectionStringProvider : class, IConnectionStringProvider
             where TDatabaseContextOptionsBuilderConfigurator : class, IDatabaseContextOptionsBuilderConfigurator
         {
-            var intermediateServiceProvider = services.BuildServiceProvider();
-
-            var connectionStringProvider = intermediateServiceProvider.GetRequiredService<TConnectionStringProvider>();
-
-            var connectionString = connectionStringProvider.GetConnectionString();
-
-            var databaseContextOptionsBuilderConfigurator = intermediateServiceProvider.GetRequiredService<TDatabaseContextOptionsBuilderConfigurator>();
-
-            services.AddDbContext<TDbContext>(dbContextOptionsBuilder =>
+            services.AddDbContext<TDbContext>((serviceProvider, dbContextOptionsBuilder) =>
             {
+                var connectionStringProvider = serviceProvider.GetRequiredService<TConnectionStringProvider>();
+
+                var connectionString = connectionStringProvider.GetConnectionString();
+
+                var databaseContextOptionsBuilderConfigurator = serviceProvider.GetRequiredService<TDatabaseContextOptionsBuilderConfigurator>();
+
                 dbContextOptionsBuilder.UseSqlServer(connectionString, sqlServerDbContextOptionsBuilder =>
                 {
                     databaseContextOptionsBuilderConfigurator.ConfigureDatabaseContextOptionsBuilder(dbContextOptionsBuilder, sqlServerDbContextOptionsBuilder);
