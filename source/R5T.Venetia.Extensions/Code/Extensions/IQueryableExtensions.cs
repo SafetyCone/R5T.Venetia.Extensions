@@ -12,6 +12,23 @@ namespace R5T.Venetia.Extensions
 {
     public static class IQueryableExtensions
     {
+        public static async Task<WasFound<TResult>> WasFoundSingleOrDefault<TResult>(this IQueryable<TResult> queryable)
+        {
+            var singleOrDefault = await queryable.SingleOrDefaultAsync();
+
+            var wasFound = Magyar.WasFound.From(singleOrDefault); // Needs qualification due to static method name.
+            return wasFound;
+        }
+
+        /// <summary>
+        /// Selects <see cref="WasFoundSingleOrDefault{TEntity}(IQueryable{TEntity})"/> as the default was found.
+        /// </summary>
+        public static Task<WasFound<TResult>> WasFound<TResult>(this IQueryable<TResult> queryable)
+        {
+            var gettingWasFound = queryable.WasFoundSingleOrDefault();
+            return gettingWasFound;
+        }
+
         public static async Task<HasOutput<TEntity>> HasSingleAsync<TEntity>(this IQueryable<TEntity> queryable)
             where TEntity: class
         {
