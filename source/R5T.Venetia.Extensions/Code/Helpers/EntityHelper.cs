@@ -7,7 +7,7 @@ namespace R5T.Venetia
     {
         public static bool WasFound<T>(T entity) where T: class
         {
-            var wasFound = entity == default;
+            var wasFound = entity != default;
             return wasFound;
         }
     }
