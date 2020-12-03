@@ -46,5 +46,17 @@ namespace R5T.Venetia.Extensions
             var hasOutput = HasOutput.From(singleOrDefault);
             return hasOutput;
         }
+
+        public static Task<TProperty> GetPropertySingle<TEntity, TProperty>(this IQueryable<TEntity> entities,
+            Expression<Func<TEntity, bool>> predicate,
+            Expression<Func<TEntity, TProperty>> propertySelector)
+        {
+            var gettingProperty = entities
+                .Where(predicate)
+                .Select(propertySelector)
+                .SingleAsync();
+
+            return gettingProperty;
+        }
     }
 }
