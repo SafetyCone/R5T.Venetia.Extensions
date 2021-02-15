@@ -15,6 +15,24 @@ namespace R5T.Venetia.Extensions
         /// <summary>
         /// Adds the <typeparamref name="TConnectionStringProvider"/> and <typeparamref name="TDatabaseContextOptionsBuilderConfigurator"/> types to the service collection, then uses them add the <typeparamref name="TDbContext"/> database context. 
         /// </summary>
+        public static IServiceCollection AddDatabaseContextAddServices<TDbContext, TConnectionStringProvider, TDatabaseContextOptionsBuilderConfigurator>(this IServiceCollection services,
+            TConnectionStringProvider connectionStringProvider)
+            where TDbContext : DbContext
+            where TConnectionStringProvider : class, IConnectionStringProvider
+            where TDatabaseContextOptionsBuilderConfigurator : class, IDatabaseContextOptionsBuilderConfigurator
+        {
+            services
+                .TryAddSingletonFluent<TDatabaseContextOptionsBuilderConfigurator>()
+                ;
+
+            services.AddDatabaseContextUseServices<TDbContext, TConnectionStringProvider, TDatabaseContextOptionsBuilderConfigurator>(connectionStringProvider);
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds the <typeparamref name="TConnectionStringProvider"/> and <typeparamref name="TDatabaseContextOptionsBuilderConfigurator"/> types to the service collection, then uses them add the <typeparamref name="TDbContext"/> database context. 
+        /// </summary>
         public static IServiceCollection AddDatabaseContextAddServices<TDbContext, TConnectionStringProvider, TDatabaseContextOptionsBuilderConfigurator>(this IServiceCollection services)
             where TDbContext: DbContext
             where TConnectionStringProvider: class, IConnectionStringProvider
@@ -26,6 +44,30 @@ namespace R5T.Venetia.Extensions
                 ;
 
             services.AddDatabaseContextUseServices<TDbContext, TConnectionStringProvider, TDatabaseContextOptionsBuilderConfigurator>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Uses the <typeparamref name="TConnectionStringProvider"/> and <typeparamref name="TDatabaseContextOptionsBuilderConfigurator"/> types to add the <typeparamref name="TDbContext"/> database context. 
+        /// </summary>
+        public static IServiceCollection AddDatabaseContextUseServices<TDbContext, TConnectionStringProvider, TDatabaseContextOptionsBuilderConfigurator>(this IServiceCollection services,
+            TConnectionStringProvider connectionStringProvider)
+            where TDbContext : DbContext
+            where TConnectionStringProvider : class, IConnectionStringProvider
+            where TDatabaseContextOptionsBuilderConfigurator : class, IDatabaseContextOptionsBuilderConfigurator
+        {
+            services.AddDbContext<TDbContext>((serviceProvider, dbContextOptionsBuilder) =>
+            {
+                var connectionString = connectionStringProvider.GetConnectionString();
+
+                var databaseContextOptionsBuilderConfigurator = serviceProvider.GetRequiredService<TDatabaseContextOptionsBuilderConfigurator>();
+
+                dbContextOptionsBuilder.UseSqlServer(connectionString, sqlServerDbContextOptionsBuilder =>
+                {
+                    databaseContextOptionsBuilderConfigurator.ConfigureDatabaseContextOptionsBuilder(dbContextOptionsBuilder, sqlServerDbContextOptionsBuilder);
+                });
+            });
 
             return services;
         }
@@ -61,6 +103,17 @@ namespace R5T.Venetia.Extensions
             where TDatabaseContextOptionsBuilderConfigurator : class, IDatabaseContextOptionsBuilderConfigurator
         {
             services.AddDatabaseContextAddServices<TDbContext, TConnectionStringProvider, TDatabaseContextOptionsBuilderConfigurator>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddDatabaseContext<TDbContext, TConnectionStringProvider, TDatabaseContextOptionsBuilderConfigurator>(this IServiceCollection services,
+            TConnectionStringProvider connectionStringProvider)
+            where TDbContext : DbContext
+            where TConnectionStringProvider : class, IConnectionStringProvider
+            where TDatabaseContextOptionsBuilderConfigurator : class, IDatabaseContextOptionsBuilderConfigurator
+        {
+            services.AddDatabaseContextAddServices<TDbContext, TConnectionStringProvider, TDatabaseContextOptionsBuilderConfigurator>(connectionStringProvider);
 
             return services;
         }
