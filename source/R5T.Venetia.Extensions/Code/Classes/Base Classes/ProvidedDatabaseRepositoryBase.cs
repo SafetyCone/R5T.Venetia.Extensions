@@ -74,6 +74,9 @@ namespace R5T.Venetia
             }
         }
 
+        /// <summary>
+        /// Default method is asynchronous.
+        /// </summary>
         protected Task<TOutput> ExecuteInContext<TOutput>(Func<TDbContext, Task<TOutput>> function)
         {
             var execute = this.ExecuteInContextAsync(function);
