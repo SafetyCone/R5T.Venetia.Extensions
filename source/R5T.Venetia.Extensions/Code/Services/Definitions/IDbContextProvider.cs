@@ -2,10 +2,13 @@
 
 using Microsoft.EntityFrameworkCore;
 
+using R5T.T0064;
+
 
 namespace R5T.Venetia
 {
-    public interface IDbContextProvider<TDbContext>
+    [ServiceDefinitionMarker]
+    public interface IDbContextProvider<TDbContext> : IServiceDefinition
         where TDbContext: DbContext
     {
         TDbContext GetDbContext(DbContextOptions<TDbContext> dbContextOptions);

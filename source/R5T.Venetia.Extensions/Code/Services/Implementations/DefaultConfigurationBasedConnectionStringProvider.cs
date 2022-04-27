@@ -1,8 +1,10 @@
-﻿using System;
+using System;
 
 using Microsoft.Extensions.Configuration;
 
 using R5T.Lincoln;
+
+using R5T.T0064;
 
 
 namespace R5T.Venetia
@@ -11,7 +13,8 @@ namespace R5T.Venetia
     /// A default implementation of a configuration-based connection string provider service.
     /// The service directly provides the value in the configuration at the <see cref="DefaultConfigurationBasedConnectionStringProvider.ConnectionStringConfigurationPath"/> location.
     /// </summary>
-    public class DefaultConfigurationBasedConnectionStringProvider : IConnectionStringProvider
+    [ServiceImplementationMarker]
+    public class DefaultConfigurationBasedConnectionStringProvider : IConnectionStringProvider, IServiceImplementation
     {
         public const string ConnectionStringConfigurationPath = "DatabaseConfiguration:ConnectionString";
 
@@ -19,7 +22,8 @@ namespace R5T.Venetia
         private IConfiguration Configuration { get; }
 
 
-        public DefaultConfigurationBasedConnectionStringProvider(IConfiguration configuration)
+        public DefaultConfigurationBasedConnectionStringProvider(
+            IConfiguration configuration)
         {
             this.Configuration = configuration;
         }

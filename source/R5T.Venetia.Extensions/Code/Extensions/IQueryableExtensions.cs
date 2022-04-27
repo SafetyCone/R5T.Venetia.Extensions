@@ -29,6 +29,15 @@ namespace R5T.Venetia.Extensions
             return gettingWasFound;
         }
 
+        /// <summary>
+        /// Selects <see cref="WasFoundSingleOrDefault{TEntity}(IQueryable{TEntity})"/> as the default was found.
+        /// </summary>
+        public static Task<WasFound<TResult>> WasFoundForQueryable<TResult>(this IQueryable<TResult> queryable)
+        {
+            var gettingWasFound = queryable.WasFoundSingleOrDefault();
+            return gettingWasFound;
+        }
+
         public static async Task<HasOutput<TEntity>> HasSingleAsync<TEntity>(this IQueryable<TEntity> queryable)
             where TEntity: class
         {

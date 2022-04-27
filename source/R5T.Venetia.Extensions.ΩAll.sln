@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R5T.Venetia.Extensions.Cons
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R5T.Venetia.Extensions.Testing", "R5T.Venetia.Extensions.Testing\R5T.Venetia.Extensions.Testing.csproj", "{42202127-DA4D-4F34-AE30-BF8A5E3DDF20}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Dependencies", "_Dependencies", "{08DA411B-C040-440C-8E92-052BF734EBB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R5T.T0064", "..\..\R5T.T0064\source\R5T.T0064\R5T.T0064.csproj", "{88F31920-FC6B-496F-860C-D269AF21885B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +62,20 @@ Global
 		{42202127-DA4D-4F34-AE30-BF8A5E3DDF20}.Release|x64.Build.0 = Release|Any CPU
 		{42202127-DA4D-4F34-AE30-BF8A5E3DDF20}.Release|x86.ActiveCfg = Release|Any CPU
 		{42202127-DA4D-4F34-AE30-BF8A5E3DDF20}.Release|x86.Build.0 = Release|Any CPU
+		{88F31920-FC6B-496F-860C-D269AF21885B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88F31920-FC6B-496F-860C-D269AF21885B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88F31920-FC6B-496F-860C-D269AF21885B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{88F31920-FC6B-496F-860C-D269AF21885B}.Debug|x64.Build.0 = Debug|Any CPU
+		{88F31920-FC6B-496F-860C-D269AF21885B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{88F31920-FC6B-496F-860C-D269AF21885B}.Debug|x86.Build.0 = Debug|Any CPU
+		{88F31920-FC6B-496F-860C-D269AF21885B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88F31920-FC6B-496F-860C-D269AF21885B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88F31920-FC6B-496F-860C-D269AF21885B}.Release|x64.ActiveCfg = Release|Any CPU
+		{88F31920-FC6B-496F-860C-D269AF21885B}.Release|x64.Build.0 = Release|Any CPU
+		{88F31920-FC6B-496F-860C-D269AF21885B}.Release|x86.ActiveCfg = Release|Any CPU
+		{88F31920-FC6B-496F-860C-D269AF21885B}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{88F31920-FC6B-496F-860C-D269AF21885B} = {08DA411B-C040-440C-8E92-052BF734EBB0}
 	EndGlobalSection
 EndGlobal

@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Infrastructure;using R5T.T0064;
 
 
 namespace R5T.Venetia
-{
-    public class DoNothingDatabaseContextOptionsBuilderConfigurator : IDatabaseContextOptionsBuilderConfigurator
+{[ServiceImplementationMarker]
+    public class DoNothingDatabaseContextOptionsBuilderConfigurator : IDatabaseContextOptionsBuilderConfigurator,IServiceImplementation
     {
         public void ConfigureDatabaseContextOptionsBuilder(DbContextOptionsBuilder dbContextOptionsBuilder, SqlServerDbContextOptionsBuilder sqlServerDbContextOptionsBuilder)
         {

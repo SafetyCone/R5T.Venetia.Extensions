@@ -2,16 +2,20 @@
 
 using Microsoft.EntityFrameworkCore;
 
+using R5T.T0064;
+
 
 namespace R5T.Venetia
 {
-    public class FunctionBasedDbContextProvider<TDbContext> : IDbContextProvider<TDbContext>
+    [ServiceImplementationMarker]
+    public class FunctionBasedDbContextProvider<TDbContext> : IDbContextProvider<TDbContext>, IServiceImplementation
         where TDbContext : DbContext
     {
         private Func<DbContextOptions<TDbContext>, TDbContext> DbContextConstructor { get; }
 
 
-        public FunctionBasedDbContextProvider(Func<DbContextOptions<TDbContext>, TDbContext> dbContextConstructor)
+        public FunctionBasedDbContextProvider(
+            [NotServiceComponent] Func<DbContextOptions<TDbContext>, TDbContext> dbContextConstructor)
         {
             this.DbContextConstructor = dbContextConstructor;
         }
